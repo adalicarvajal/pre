@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preguntas de Control Interno</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .question { margin-bottom: 15px; }
+        .feedback { font-weight: bold; margin-top: 5px; }
+        h2 { text-align: center; }
+    </style>
+</head>
+<body>
+    <h1>Cuestionario</h1>
+    
+    <form>
+        <div id="preguntas-container"></div>
+    </form>
+
+    <script>
+    const preguntasGD = [
+
+        { pregunta: "¿Cuáles son los objetivos de la gestión documental según el documento?", opciones: ["Organización y acceso a la información, mejora en la toma de decisiones, cumplimiento normativo, reducción de costos, seguridad de la información", "Organización de archivos, mejora en la comunicación, cumplimiento legal, reducción de tiempo, seguridad de datos", "Acceso a la información, mejora en la productividad, cumplimiento de plazos, reducción de costos, seguridad de documentos", "Organización de datos, mejora en la eficiencia, cumplimiento de normas, reducción de gastos, seguridad de archivos"], respuesta: 0 },
+        { pregunta: "¿Cuáles son las etapas del ciclo de vida de un documento según el documento?", opciones: ["Creación, recepción, clasificación y almacenamiento, uso, revisión y actualización, disposición", "Creación, recepción, clasificación, uso, revisión, eliminación", "Generación, recepción, almacenamiento, uso, actualización, archivo", "Creación, recepción, almacenamiento, uso, revisión, eliminación"], respuesta: 0 },
+        { pregunta: "¿Cuáles son las categorías de archivos mencionadas en el documento?", opciones: ["Activos, inactivos/pasivos, históricos, legales, financieros, recursos humanos, centralizado, descentralizado", "Activos, inactivos, históricos, legales, financieros, recursos humanos, centralizado, descentralizado", "Activos, pasivos, históricos, legales, financieros, recursos humanos, centralizado, descentralizado", "Activos, inactivos, históricos, legales, financieros, recursos humanos, centralizado, descentralizado"], respuesta: 0 },
+        { pregunta: "¿Cuál es la función de la Unidad de Archivo Central según el documento?", opciones: ["Organización y clasificación de documentos, almacenamiento seguro, control de acceso, preservación y conservación, actualización y mantenimiento de registros, capacitación y asesoramiento, eliminación y disposición de documentos", "Organización de archivos, almacenamiento seguro, control de acceso, preservación de documentos, actualización de registros, capacitación, eliminación de documentos", "Clasificación de documentos, almacenamiento seguro, control de acceso, conservación de documentos, actualización de registros, capacitación, eliminación de archivos", "Organización de documentos, almacenamiento seguro, control de acceso, preservación de archivos, actualización de registros, capacitación, eliminación de documentos"], respuesta: 0 },
+        { pregunta: "¿Qué se menciona sobre el manejo del archivo pasivo en el documento?", opciones: ["Conservación de información, optimización del espacio, cumplimiento normativo", "Almacenamiento de documentos, optimización del espacio, cumplimiento legal", "Conservación de archivos, optimización del espacio, cumplimiento normativo", "Almacenamiento de información, optimización del espacio, cumplimiento legal"], respuesta: 0 },
+        { pregunta: "¿Qué se menciona sobre la codificación, etiquetación y criterios de ordenamiento en el documento?", opciones: ["Asignar símbolos o números para identificación, simplicidad, unicidad, flexibilidad", "Asignar códigos o números para identificación, simplicidad, unicidad, flexibilidad", "Asignar símbolos o números para identificación, simplicidad, unicidad, adaptabilidad", "Asignar códigos o números para identificación, simplicidad, unicidad, adaptabilidad"], respuesta: 0 },
+        { pregunta: "Según el documento, ¿cuál es un ejemplo de etiquetación?", opciones: ["Código: C2025-001, Título: Contrato de proveedor de Servicios, Fecha: 03/03/2025, Responsable: Juan Ramón Cardanes", "Título: Contrato de proveedor de Servicios, Código: C2025-002, Fecha: 03/02/2025, Responsable: Juan Ramón Cardanes", "Código: C2025-001, Fecha: 02/03/2025, Título: Contrato de proveedor de Servicios,  Responsable: Juan Ramón Cardanes", "Título: Contrato de proveedor de Servicios,Responsable: Juan Ramón Cardanes, Fecha: 02/02/2025, Código: C2025-001"], respuesta: 0 },
+        { pregunta: "¿Cuáles son los plazos de conservación documental mencionados en el documento?", opciones: ["Administrativos, contables y financieros, facturas, recibos, estados (5-10 años), contratos y cuentas (5-20 años), laborales (5-20 años), salud y seguridad (5-40 años)", "Administrativos, contables y financieros, facturas, recibos, estados (10-20 años), contratos y cuentas (5-10 años), laborales (20-10 años), salud y seguridad (5-30 años)", "Administrativos, contables y financieros, facturas, recibos, estados (10-30 años), contratos y cuentas (5-20 años), laborales (5-10 años), salud y seguridad (5-10 años)", "Administrativos, contables y financieros, facturas, recibos, estados (5-20 años), contratos y cuentas (5-30 años), laborales (10-20 años), salud y seguridad (5-35 años)"], respuesta: 0 },
+        { pregunta: "¿Cuál es el objetivo principal de la gestión documental?", opciones: ["Reducir el uso de tecnología", "Organización y acceso a la información", "Aumentar los costos operativos", "Eliminar todos los documentos históricos"], respuesta: 1 },
+        { pregunta: "¿Cuál de las siguientes etapas NO forma parte del ciclo de vida de un documento?", opciones: ["Creación", "Clasificación y almacenamiento", "Eliminación inmediata", "Revisión y actualización"], respuesta: 2 },
+        { pregunta: "¿Qué tipo de archivo se utiliza con frecuencia y se almacena para un acceso fácil?", opciones: ["Archivos históricos", "Archivos inactivos", "Archivos activos", "Archivos legales"], respuesta: 2 },
+        { pregunta: "¿Cuál es la función principal de la Unidad de Archivo Central?", opciones: ["Eliminar todos los documentos antiguos", "Garantizar el manejo eficiente y seguro de la información", "Descentralizar la información", "Reducir el acceso a los documentos"], respuesta: 1 },
+        { pregunta: "¿Qué tipo de archivo se conserva por razones legales, históricas o de referencia, pero ya no se utiliza regularmente?", opciones: ["Archivos activos", "Archivos inactivos", "Archivos financieros", "Archivos centralizados"], respuesta: 1 },
+        { pregunta: "¿Cuál es una ventaja de la digitalización de documentos?", opciones: ["Aumenta la cantidad de papel utilizado", "Facilita el acceso y búsqueda de documentos", "Dificulta la recuperación de documentos", "Incrementa los costos operativos"], respuesta: 1 },
+        { pregunta: "¿Qué normativa regula la gestión documental en muchas organizaciones?", opciones: ["ISO 9001", "ISO 27001", "ISO 15489", "ISO 14001"], respuesta: 2 },
+        { pregunta: "¿Qué herramienta es comúnmente utilizada para la gestión documental digital?", opciones: ["Microsoft Excel", "Google Docs", "SharePoint", "Adobe Photoshop"], respuesta: 2 },
+        { pregunta: "¿Cuál es una característica de un buen sistema de gestión documental?", opciones: ["Difícil acceso a la información", "Falta de control de versiones", "Organización eficiente y acceso rápido", "Uso exclusivo de documentos en papel"], respuesta: 2 },
+        { pregunta: "¿Qué elemento es esencial para la seguridad en la gestión documental digital?", opciones: ["Copias de seguridad periódicas", "Acceso libre para todos los usuarios", "Eliminar documentos sin respaldo", "No aplicar cifrado a los documentos"], respuesta: 0 },
+        { pregunta: "¿Qué tipo de documento requiere firma digital para su validez?", opciones: ["Documentos privados sin importancia", "Contratos electrónicos", "Notas personales", "Borradores preliminares"], respuesta: 1 },
+        { pregunta: "¿Qué significa OCR en la gestión documental?", opciones: ["Organización Central de Registros", "Optimización de Contenido Rápido", "Reconocimiento Óptico de Caracteres", "Operación de Control de Registros"], respuesta: 2 },
+        { pregunta: "¿Cuál de las siguientes opciones NO es una ventaja de la gestión documental digital?", opciones: ["Reducción de espacio físico", "Mayor rapidez en la búsqueda de información", "Mayor riesgo de pérdida de documentos", "Accesibilidad remota"], respuesta: 2 },
+        { pregunta: "¿Qué es un documento estructurado?", opciones: ["Un documento sin formato", "Un documento con una organización y formato definidos", "Un documento en papel", "Un documento sin etiquetas"], respuesta: 1 },
+        { pregunta: "¿Cuál es el principal objetivo de un sistema de gestión de documentos electrónicos (SGDE)?", opciones: ["Dificultar la consulta de documentos", "Facilitar el almacenamiento, organización y recuperación de documentos", "Eliminar documentos automáticamente", "Reducir el uso de software en la empresa"], respuesta: 1 },
+        { pregunta: "¿Qué tipo de documentos deben ser conservados a largo plazo?", opciones: ["Correos electrónicos no importantes", "Contratos y documentos legales", "Borradores preliminares", "Notas personales"], respuesta: 1 },
+        { pregunta: "¿Cuál de los siguientes es un ejemplo de metadato en gestión documental?", opciones: ["El contenido del documento", "La cantidad de palabras en un documento", "La fecha de creación de un documento", "El número de páginas impresas"], respuesta: 2 },
+        { pregunta: "¿Qué es la clasificación documental?", opciones: ["La destrucción de documentos innecesarios", "El proceso de organizar documentos según categorías y criterios", "El almacenamiento sin organización", "El escaneo de documentos en papel"], respuesta: 1 },
+        { pregunta: "¿Por qué es importante la gestión de versiones en documentos electrónicos?", opciones: ["Para confundir a los usuarios", "Para mantener un registro de cambios y evitar confusión", "Para eliminar versiones antiguas sin rastro", "Para evitar accesibilidad remota"], respuesta: 1 },
+        { pregunta: "¿Qué debe incluir un plan de gestión documental?", opciones: ["Solo la lista de documentos importantes", "Estrategias de almacenamiento, acceso y eliminación de documentos", "Instrucciones para destruir todos los documentos", "Políticas para evitar el acceso a los documentos"], respuesta: 1 }
+    ];
+
+    const preguntasRRHH = [
+        { pregunta: "¿Cuáles son los objetivos de la Administración de Recursos Humanos (ARH) según el documento?", opciones: ["Organizacionales, funcionales, sociales, personales", "Organizacionales, estratégicos, sociales, personales", "Funcionales, estratégicos, sociales, personales", "Organizacionales, funcionales, estratégicos, personales"], respuesta: 0 },
+        { pregunta: "¿Cuáles son los principios del accionar del talento humano mencionados en el documento?", opciones: [
+        "Respeto por la dignidad humana, equidad y justicia, integridad y ética, desarrollo personal y profesional, colaboración y trabajo en equipo, motivación y reconocimiento, responsabilidad social, flexibilidad y adaptabilidad, comunicación abierta y transparente, innovación y creatividad, bienestar integral, alineación con objetivos organizacionales", 
+        "Respeto por el valor de cada persona, igualdad y justicia, honestidad y principios éticos, crecimiento individual y profesional, cooperación y trabajo en conjunto, incentivo y valoración, compromiso con la sociedad, capacidad de ajuste y resiliencia, diálogo claro y sincero, originalidad y pensamiento innovador, equilibrio y bienestar integral, y alineación con las metas institucionales.", 
+        "Respeto por la dignidad humana, equidad y justicia, colaboración y trabajo en equipo, motivación y reconocimiento, responsabilidad social, flexibilidad y adaptabilidad, comunicación abierta y transparente, innovación y creatividad, bienestar integral, alineación con objetivos organizacionales", 
+        "Respeto por la aptitud, equidad y justicia, integridad y ética, desarrollo personal y profesional, colaboración y trabajo en equipo, motivación y reconocimiento, responsabilidad social, flexibilidad y adaptabilidad, comunicación abierta y transparente, innovación y creatividad, bienestar integral, alineación con objetivos organizacionales"], respuesta: 0 },
+        { pregunta: "¿Cuáles son los factores internos que influyen en la gestión del talento humano según el documento?", opciones: ["Cultura organizacional, estructura organizacional, liderazgo, clima laboral, recursos y capacidades", 
+        "Cultura organizacional, estructura organizacional, liderazgo, clima laboral, recursos financieros",
+        "Cultura organizacional, estructura organizacional, liderazgo, clima laboral, recursos tecnológicos", 
+        "Cultura organizacional, estructura organizacional, liderazgo, clima laboral, recursos humanos"], respuesta: 0 },
+        { pregunta: "¿Cuáles son los factores externos que influyen en la gestión del talento humano según el documento?", opciones: ["Ambientales, tecnológicos, sociales y culturales, políticos y legales, competencia, clientes y proveedores, tendencias del mercado laboral", 
+        "Factores ecológicos, avances tecnológicos, dinámicas sociales y culturales, marco político y normativo, entorno competitivo, relaciones con clientes y proveedores, y evolución del mercado laboral", 
+        "Ambiente Sociales y culturales, políticos, competencia, clientes y proveedores, tendencias del mercado laboral", 
+        "Entornos políticos y legales, competencia, clientes y proveedores, tendencias del mercado laboral"], respuesta: 0 },
+        { pregunta: "¿Cuáles son los métodos de adiestramiento en el trabajo mencionados en el documento?", opciones: ["Instrucción directa, rotación de puestos, aprendizaje mediante práctica, mentoría y coaching, simulaciones y juegos de roles, método de 2 pasos (preparar, presentar, aplicar, evaluar)", 
+        "Instrucción directa, rotación de puestos, aprendizaje mediante práctica, mentoría y coaching, simulaciones y juegos de roles, método de 4 pasos (preparar, presentar, aplicar, evaluar)", 
+        "Instrucción directa, rotación de puestos, aprendizaje mediante práctica, mentoría y coaching, simulaciones y juegos de roles, método de 10 pasos (preparar, presentar, aplicar, evaluar)", 
+        "Instrucción directa, rotación de puestos, aprendizaje mediante práctica, mentoría y coaching, simulaciones y juegos de roles, método de 8 pasos (preparar, presentar, aplicar, evaluar)"], respuesta: 1 },
+        { pregunta: "¿Cuáles son los objetivos de la ARH bajo la perspectiva de género mencionados en el documento?", opciones: ["Inclusión laboral, igualdad salarial, no discriminación", 
+        "Introducción laboral, no discriminación, conciliación vida laboral y personal, prevención del acoso y violencia de género", 
+        "Inclusión laboral, igualdad salarial, no discriminación, conciliación vida laboral y personal, prevención del acoso y violencia de género", 
+        "Introducción laboral, igualdad salarial, no discriminación, conciliación vida laboral y personal,  violencia de género"], respuesta: 2 },
+        { pregunta: "¿Cuáles son las desigualdades mencionadas en el campo ocupacional femenino según el documento?", opciones: ["Brecha salarial, segregación ocupacional, techo de cristal, discriminación y acoso", 
+        "Brecha salarial, División laboral por roles o categorías, techo de cristal, discriminación y acoso", 
+        "Diferencia salarial, segregación ocupacional, techo de cristal, discriminación y acoso", 
+        "Brecha salarial, segregación ocupacional, discriminación y acoso"], respuesta: 0 },
+        { pregunta: "¿Cuáles son los derechos de salud integral femenina mencionados en el documento?", opciones: ["Acceso a servicios de salud de calidad, protección contra todo tipo de violencia, servicio psicológico, cuidados pre y postnatales", 
+        "Acceso a todos los servicios de salud de calidad, decidir métodos anticonceptivos, protección contra todo tipo de violencia, servicio psicológico, cuidados pre y postnatales", 
+        "Acceso a servicios de salud de calidad, decidir métodos anticonceptivos, protección contra todo tipo de violencia, servicio psicológico, cuidados pre y postnatales", 
+        "Acceso a servicios de salud, decidir métodos anticonceptivos, protección contra todo tipo de violencia, servicio psicológico, cuidados pre y postnatales"], respuesta: 2 },
+        { pregunta: "¿Cuál de los siguientes NO es un concepto relacionado con el capital humano?", opciones: ["Talento humano", "Competencia", "Clima organizacional", "Recursos financieros"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un subsistema de la administración de recursos humanos?", opciones: ["Provisión", "Organización", "Retención", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un objetivo de la administración de recursos humanos?", opciones: ["Objetivos organizacionales", "Objetivos funcionales", "Objetivos sociales", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un principio del accionar del talento humano?", opciones: ["Respeto por la dignidad humana", "Equidad y justicia", "Integridad y ética", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un factor interno que influye en la gestión del talento humano?", opciones: ["Cultura organizacional", "Estructura organizacional", "Clima laboral", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un factor externo general que influye en la gestión del talento humano?", opciones: ["Factores ambientales", "Factores tecnológicos", "Factores sociales y culturales", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un factor externo específico que influye en la gestión del talento humano?", opciones: ["Competencia", "Clientes y proveedores", "Situación del mercado laboral", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un método de adiestramiento en el trabajo?", opciones: ["Instrucción directa", "Rotación de puestos", "Mentoría y coaching", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un objetivo de la administración de recursos humanos bajo la perspectiva de género?", opciones: ["Igualdad salarial", "No discriminación", "Conciliación vida laboral y personal", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un problema relacionado con el campo ocupacional femenino?", opciones: ["Brecha salarial", "Segregación ocupacional", "Techo de cristal", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un derecho relacionado con la salud integral femenina?", opciones: ["Acceso a servicios de salud de calidad", "Decidir métodos anticonceptivos", "Protección contra todo tipo de violencia", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un factor que influye en el campo ocupacional femenino?", opciones: ["Nivel educativo", "Roles de género", "Políticas públicas", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Cuál de los siguientes es un método de adiestramiento en el trabajo que implica aprender mediante la práctica?", opciones: ["Instrucción directa", "Rotación de puestos", "Aprendizaje mediante práctica", "Mentoría y coaching"], respuesta: 2 },
+        { pregunta: "¿Cuál de los siguientes es un principio del accionar del talento humano relacionado con la innovación?", opciones: ["Innovación y creatividad", "Flexibilidad y adaptabilidad", "Comunicación abierta y transparente", "Bienestar integral"], respuesta: 0 },
+        { pregunta: "¿Cuál de los siguientes es un factor interno que influye en la gestión del talento humano relacionado con la percepción del ambiente de trabajo?", opciones: ["Cultura organizacional", "Estructura organizacional", "Clima laboral", "Recursos y capacidades"], respuesta: 2 },
+        { pregunta: "¿Cuál de los siguientes es un factor externo específico que influye en la gestión del talento humano relacionado con la demanda de habilidades específicas?", opciones: ["Competencia", "Clientes y proveedores", "Situación del mercado laboral", "Factores tecnológicos"], respuesta: 2 },
+        { pregunta: "¿Cuál de los siguientes es un método de adiestramiento en el trabajo que implica la enseñanza de un empleado experimentado a uno nuevo?", opciones: ["Instrucción directa", "Rotación de puestos", "Mentoría y coaching", "Simulaciones y juegos de roles"], respuesta: 0 },
+        { pregunta: "¿Cuál de los siguientes es un objetivo de la administración de recursos humanos relacionado con el desarrollo personal y profesional?", opciones: ["Desarrollo personal y profesional", "Colaboración y trabajo en equipo", "Reconocimiento y movilidad", "Responsabilidad social"], respuesta: 0 },
+        { pregunta: "¿Cuál de los siguientes es un problema relacionado con el campo ocupacional femenino que se refiere a las barreras para ascender a puestos de liderazgo?", opciones: ["Brecha salarial", "Segregación ocupacional", "Techo de cristal", "Discriminación y acoso"], respuesta: 2 },
+        { pregunta: "¿Cuál de los siguientes es un derecho relacionado con la salud integral femenina que incluye el acceso a servicios psicológicos?", opciones: ["Acceso a servicios de salud de calidad", "Decidir métodos anticonceptivos", "Protección contra todo tipo de violencia", "Servicio psicológico"], respuesta: 3 }
+    ];
+
+    const preguntasControlInterno = [
+        { pregunta: "¿Cuáles son los objetivos del control interno según el documento?", opciones: ["Transparencia y rendición de cuentas, eficiencia operativa, control financiero", 
+        "Transparencia financiera y prevención de pérdidas", 
+        "Nitidez y rendición de cuentas, eficiencia operativa, control financiero, prevención de pérdidas", 
+        "Transparencia y rendición de cuentas, eficiencia operativa, control financiero, prevención de pérdidas"], respuesta: 3 },
+        { pregunta: "¿Cuáles son las problemáticas mencionadas en la administración de bienes según el documento?", opciones: ["No hay inventarios actualizados, dificultad y trazabilidad de bienes, defensos de bienes por mala gestión, irregularidades en adquisición, falta de capacitación en servidores públicos", 
+        "No hay inventarios actualizados, dificultad en la trazabilidad de bienes, defensos de bienes por mala gestión, irregularidades en adquisición, falta de capacitación en servidores públicos", 
+        "No hay trazabilidad de bienes, defensos de bienes por mala gestión, irregularidades en adquisición, falta de capacitación en servidores públicos", 
+        "No hay inventarios actualizados, defensos de bienes por mala gestión, irregularidades en adquisición, falta de capacitación en servidores públicos"], respuesta: 1 },
+        { pregunta: "¿Cuáles son las clasificaciones de bienes mencionadas en el documento?", opciones: ["Propiedad, planta y equipos, terrenos, infraestructura y edificios, patrimonio artístico cultural, maquinaria y equipos, bienes de control administrativo, inventarios", 
+        "Propiedad, terrenos, infraestructura y edificios, patrimonio artístico cultural, biológicos, intangibles, maquinaria y equipos, bienes de control administrativo, inventarios", 
+        "Propiedad, planta y equipos, terrenos, infraestructura y edificios, patrimonio artístico cultural, biológicos, intangibles, maquinaria y equipos, bienes de control administrativo, inventarios", 
+        "Propiedad, planta y equipos,  infraestructura y edificios, patrimonio artístico cultural, biológicos, intangibles, maquinaria y equipos, bienes de control administrativo, inventarios"], respuesta: 2 },
+        { pregunta: "¿Cuáles son las bases normativas vigentes mencionadas en el documento?", opciones: ["Constitución, Ley Orgánica de la CGE, Reglamento General Sustitutivo para la Administración, Uso y Control de Bienes en el Sector Público", 
+        "Ley Orgánica de la CGE, Reglamento General Sustitutivo para la Administración, Uso y Control de Bienes en el Sector Público", 
+        "Constitución, Ley Orgánica de la CGE, Reglamento General Sustitutivo para la Administración", 
+        "Constitución, Ley Orgánica de la CGE, Reglamento General para la gestión, utilización y supervisión de bienes en el sector público"], respuesta: 0 },
+        { pregunta: "¿Cuáles son las relaciones con las funciones financieras y administrativas mencionadas en el documento?", opciones: ["Registro contable, control interno, depreciación y mantenimiento", 
+        "Registro contable, mantenimiento y rendición, inventarios periódicos", 
+        "Registro contable, control externo, depreciación, mantenimiento y rendición, inventarios periódicos", 
+        "Registro contable, control interno, depreciación, mantenimiento y rendición, inventarios periódicos"], respuesta: 3 },
+        { pregunta: "¿Cuáles son los procesos mencionados para el egreso y baja de bienes según el documento?", opciones: ["Donación, permuta, canje, desincorporación, baja mediante informe técnico, sanción ejecutiva", 
+        "Donación, venta de bienes inmuebles, permuta, canje, desincorporación, baja mediante informe técnico, sanción ejecutiva", 
+        "Donación, venta de bienes inmuebles, permuta, canje, desincorporación, sanción ejecutiva", 
+        "Donación, venta de bienes inmuebles, permuta, canje, incorporación, baja mediante informe técnico, sanción ejecutiva"], respuesta: 1 },
+        { pregunta: "¿Cuál es la fórmula de depreciación mencionada en el documento?", opciones: ["CDP = (V valor contable - V valor residual) / V vida útil", "CDP = (V valor contable + V valor residual) / V vida útil", "CDP = (V valor contable * V valor residual) + V vida útil", "CDP = (V valor contable / V valor residual) * V vida útil"], respuesta: 0 },
+        { pregunta: "¿Cuál es el objetivo principal de las normas de control interno en el sector público?", opciones: ["Maximizar las pérdidas", "Administración de bienes con eficiencia y transparencia", "Evitar la rendición de cuentas", "Reducir la capacitación de los servidores públicos"], respuesta: 1 },
+        { pregunta: "¿Cuál de los siguientes NO es un problema en la administración de bienes en el sector público?", opciones: ["Inventarios actualizados", "Dificultad en la trazabilidad de bienes", "Defensos de bienes por mala gestión", "Irregularidades en la adquisición"], respuesta: 0 },
+        { pregunta: "¿Qué es el control interno en el contexto de la administración de bienes?", opciones: ["Métodos y procedimientos para garantizar la legalidad y transparencia en la gestión de recursos públicos", "Un sistema para maximizar las pérdidas", "Un proceso para evitar la rendición de cuentas", "Un método para aumentar la corrupción"], respuesta: 0 },
+        { pregunta: "¿Qué artículo de la Constitución establece que ningún servidor público está exento de responsabilidad por actos realizados u omisiones?", opciones: ["Artículo 241", "Artículo 225", "Artículo 233", "Artículo 201"], respuesta: 2 },
+        { pregunta: "¿Cuál de los siguientes es un tipo de bien clasificado en el sector público?", opciones: ["Bienes de control administrativo", "Inventarios", "Bienes intangibles", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué es un inventario en el contexto de la administración de bienes?", opciones: ["Un registro detallado de los bienes del estado", "Un método para evitar la transparencia", "Un proceso para aumentar las pérdidas", "Un sistema para evitar la rendición de cuentas"], respuesta: 0 },
+        { pregunta: "¿Qué ley regula el control interno y la administración de bienes del estado?", opciones: ["Ley Orgánica de la CGE", "Ley de Transparencia", "Ley de Rendición de Cuentas", "Ley de Bienes Públicos"], respuesta: 0 },
+        { pregunta: "¿Cuál de los siguientes es un bien de control administrativo?", opciones: ["Bienes no consumibles con vida útil superior a 4 años", "Bienes consumibles con vida útil inferior a 4 años", "Bienes sujetos a depreciación", "Bienes intangibles"], respuesta: 0 },
+        { pregunta: "¿Qué es la depreciación en el contexto de la administración de bienes?", opciones: ["La desvalorización de bienes de larga duración", "Un método para aumentar el valor de los bienes", "Un proceso para evitar la rendición de cuentas", "Un sistema para maximizar las pérdidas"], respuesta: 0 },
+        { pregunta: "¿Qué se debe hacer para garantizar la concordancia entre los registros contables y la existencia real de los bienes?", opciones: ["Realizar inventarios físicos de manera regular", "Evitar la rendición de cuentas", "Maximizar las pérdidas", "Reducir la capacitación de los servidores públicos"], respuesta: 0 },
+        { pregunta: "¿Cuál de los siguientes es un bien intangible?", opciones: ["Patrimonio artístico cultural", "Infraestructura y edificios", "Terrenos", "Maquinaria y equipos"], respuesta: 0 },
+        { pregunta: "¿Qué artículo de la Constitución establece la estructura del sector público?", opciones: ["Artículo 241", "Artículo 225", "Artículo 233", "Artículo 201"], respuesta: 1 },
+        { pregunta: "¿Cuál de los siguientes es un bien biológico?", opciones: ["Terrenos", "Infraestructura y edificios", "Animales y plantas", "Maquinaria y equipos"], respuesta: 2 },
+        { pregunta: "¿Qué es la auditoría interna en el contexto de la administración de bienes?", opciones: ["Evaluación de la gestión y uso de bienes del estado", "Un método para evitar la transparencia", "Un proceso para aumentar las pérdidas", "Un sistema para evitar la rendición de cuentas"], respuesta: 0 },
+        { pregunta: "¿Qué se debe hacer para el egreso y baja de bienes?", opciones: ["Presentar un informe técnico", "Evitar la rendición de cuentas", "Maximizar las pérdidas", "Reducir la capacitación de los servidores públicos"], respuesta: 0 },
+        { pregunta: "¿Qué es el valor residual en el contexto de la depreciación de bienes?", opciones: ["El 10% del valor contable", "El 50% del valor contable", "El 100% del valor contable", "El 0% del valor contable"], respuesta: 0 },
+        { pregunta: "¿Cuál de los siguientes es un bien de inventario?", opciones: ["Materiales o suministros consumibles", "Bienes no consumibles", "Bienes intangibles", "Bienes sujetos a depreciación"], respuesta: 0 },
+        { pregunta: "¿Qué es el Reglamento General Sustitutivo para la Administración, Uso y Control de Bienes en el Sector Público?", opciones: ["Un conjunto de directrices claras para la administración de bienes", "Un método para evitar la transparencia", "Un proceso para aumentar las pérdidas", "Un sistema para evitar la rendición de cuentas"], respuesta: 0 },
+        { pregunta: "¿Qué es la manifestación y rendición en el contexto de la administración de bienes?", opciones: ["Planes de mantenimiento preventivo y correctivo", "Un método para evitar la transparencia", "Un proceso para aumentar las pérdidas", "Un sistema para evitar la rendición de cuentas"], respuesta: 0 },
+        { pregunta: "¿Qué es la CGE en el contexto de la administración de bienes?", opciones: ["Un organismo técnico encargado del control del estado", "Un método para evitar la transparencia", "Un proceso para aumentar las pérdidas", "Un sistema para evitar la rendición de cuentas"], respuesta: 0 }
+    ];
+
+    const preguntasLogistica = [
+        { pregunta: "¿Cuál es el propósito del ciclo logístico ?", opciones: ["Satisfacer necesidades de vida y combate", 
+        "Optimizar recursos y reducir costos", 
+        "Mejorar la distribución y almacenamiento", 
+        "Aumentar la eficiencia en el transporte"], respuesta: 0 },
+        { pregunta: "¿Qué elementos se consideran en la determinación de necesidades ?", opciones: ["Datos estadísticos, METT, disponibilidad", 
+        "Datos estadísticos, METT, costos", 
+        "Datos estadísticos, METT, responsabilidad",
+        "Datos estadísticos, METT, planificación"], respuesta: 2 },
+        { pregunta: "¿Qué aspectos se mencionan en la obtención de recursos ?", opciones: ["Trámite legal, explotación de recursos locales, control de CLT", 
+        "Trámite legal, explotación de recursos locales, control de CLT, territorio propio", 
+        "Trámite legal, explotación de recursos locales, control de CLT, territorio enemigo", 
+        "Trámite legal, explotación de recursos locales, control de CLT, territorio propio, territorio enemigo"], respuesta: 3 },
+        { pregunta: "¿Qué etapas se mencionan en la distribución de recursos logísticos?", opciones: ["Recepción, almacenamiento, transporte y entrega", 
+        "Recepción, almacenamiento, transporte", 
+        "Recepción, transporte y entrega", 
+        "Almacenamiento, transporte y entrega"], respuesta: 0 },
+        { pregunta: "¿Qué tipos de almacenamiento ?", opciones: ["Almacén, golpón, descubiertas", 
+        "Cubiertas, almacén, golpón", 
+        "Almacén, golpón, descubiertas", 
+        "Cubiertas, almacén, golpón, descubiertas"], respuesta: 3 },
+        { pregunta: "¿Qué tipos de mantenimiento ?", opciones: ["Preventivo, correctivo, restaurativo", 
+        "Preventivo y correctivo", 
+        "Correctivo, restaurativo", 
+        "Preventivo o restaurativo y correctivo"], respuesta: 0 },
+        { pregunta: "¿Qué tipos de inspección ?", opciones: ["Programadas, no programadas", 
+        "Programadas, eventuales, especiales", 
+        "No programadas, eventuales, especiales", 
+        "Programadas, no programadas, eventuales, especiales"], respuesta: 0 },
+        { pregunta: "¿Cuales son los niveles de mantenimiento ?", opciones: ["Organiza, de depósito, de fábrica",
+        "Organiza, de depósito", 
+        "De depósito, de fábrica", 
+        "Organiza, de fábrica"], respuesta: 0 },
+        { pregunta: "¿Qué componentes se mencionan en el Sistema de Registro y Control de Recursos Logísticos (SISRECO)?", opciones: ["Personal, infraestructura tecnológica, procesos", 
+        "Personal, infraestructura tecnológica", 
+        "Infraestructura tecnológica, procesos", 
+        "Personal, procesos"], respuesta: 0 },
+        { pregunta: "¿Cuál es el objetivo principal del ciclo logístico?", opciones: ["Maximizar las pérdidas", "Satisfacer necesidades operativas", "Evitar la distribución de recursos", "Reducir la eficiencia operativa"], respuesta: 1 },
+        { pregunta: "¿Cuál de los siguientes NO es un recurso logístico?", opciones: ["Materiales", "Equipos", "Finanzas", "Personal"], respuesta: 2 },
+        { pregunta: "¿Qué es la determinación de necesidades en el contexto logístico?", opciones: ["Identificar los recursos necesarios para operaciones", "Evitar la planificación", "Maximizar los costos", "Reducir la eficiencia operativa"], respuesta: 0 },
+        { pregunta: "¿Qué se debe considerar en la edición de un recurso logístico?", opciones: ["Nombre", "Número de parte", "Aplicabilidad", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué es la obtención en el contexto logístico?", opciones: ["Adquirir los recursos necesarios", "Evitar la distribución de recursos", "Maximizar los costos", "Reducir la eficiencia operativa"], respuesta: 0 },
+        { pregunta: "¿Qué es la distribución en el contexto logístico?", opciones: ["Hacer llegar los recursos a las fuerzas", "Evitar la planificación", "Maximizar los costos", "Reducir la eficiencia operativa"], respuesta: 0 },
+        { pregunta: "¿Qué es la recepción en el contexto logístico?", opciones: ["Verificar las especificaciones técnicas", "Evitar la distribución de recursos", "Maximizar los costos", "Reducir la eficiencia operativa"], respuesta: 0 },
+        { pregunta: "¿Qué es el almacenamiento en el contexto logístico?", opciones: ["Colección ordenada de material y equipo", "Evitar la planificación", "Maximizar los costos", "Reducir la eficiencia operativa"], respuesta: 0 },
+        { pregunta: "¿Qué es el transporte y entrega en el contexto logístico?", opciones: ["Distribución de abastecimiento y entrega", "Evitar la planificación", "Maximizar los costos", "Reducir la eficiencia operativa"], respuesta: 0 },
+        { pregunta: "¿Qué es el mantenimiento en el contexto logístico?", opciones: ["Conservación y preservación de recursos", "Evitar la planificación", "Maximizar los costos", "Reducir la eficiencia operativa"], respuesta: 0 },
+        { pregunta: "¿Cuál de los siguientes es un tipo de mantenimiento?", opciones: ["Preventivo", "Correctivo", "Restaurativo", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué es la inspección en el contexto logístico?", opciones: ["Vigilancia del comportamiento de los recursos", "Evitar la planificación", "Maximizar los costos", "Reducir la eficiencia operativa"], respuesta: 0 },
+        { pregunta: "¿Cuál de los siguientes es un tipo de inspección programada?", opciones: ["Periódicas", "Eventuales", "Especiales", "Todas las anteriores"], respuesta: 0 },
+        { pregunta: "¿Qué es el SISRECO en el contexto logístico?", opciones: ["Sistema de Registro y Control de los recursos logísticos", "Evitar la planificación", "Maximizar los costos", "Reducir la eficiencia operativa"], respuesta: 0 },
+        { pregunta: "¿Cuál de los siguientes es un componente del SISRECO?", opciones: ["Personal", "Infraestructura tecnológica", "Procesos", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué es el mantenimiento preventivo?", opciones: ["Realizado por tiempo limitado", "Realizado según el estado de condición", "Realizado para restaurar recursos", "Realizado para evitar fallos futuros"], respuesta: 3 },
+        { pregunta: "¿Qué es el mantenimiento correctivo?", opciones: ["Realizado por tiempo limitado", "Realizado según el estado de condición", "Realizado para restaurar recursos", "Realizado para corregir fallos existentes"], respuesta: 3 },
+        { pregunta: "¿Qué es el mantenimiento restaurativo?", opciones: ["Realizado por tiempo limitado", "Realizado según el estado de condición", "Realizado para restaurar recursos", "Realizado para evitar fallos futuros"], respuesta: 2 },
+        { pregunta: "¿Qué es el nivel de mantenimiento organizado?", opciones: ["Realizado por el usuario", "Realizado por el depósito CLT", "Realizado por las instalaciones del fabricante", "Realizado por el usuario y planificado por CAL y CLR"], respuesta: 3 },
+        { pregunta: "¿Qué es el nivel de mantenimiento de depósito?", opciones: ["Realizado por el usuario", "Realizado por el depósito CLT", "Realizado por las instalaciones del fabricante", "Realizado por el usuario y planificado por CAL y CLR"], respuesta: 1 }
+    ];
+    const preguntasSIS = [
+        { pregunta: "¿Cuál es el propósito de la OIT en relación con la seguridad en el trabajo?", opciones: ["Crear programas de prevención para enfermedades laborales", "Asegurar el bienestar psicológico de los trabajadores", "Regular exclusivamente el trabajo infantil", "Establecer el principio de protección de los trabajadores respecto a enfermedades y accidentes laborales, y garantizar condiciones de trabajo seguras y saludables"], respuesta: 3 },
+        { pregunta: "¿Cuál de las siguientes afirmaciones describe mejor la definición de Salud Ocupacional según la OMS?", opciones: ["Se enfoca en la salud mental de los trabajadores", "Su objetivo principal es la fiscalización de normas de seguridad", "Promueve y mantiene el más alto grado de bienestar físico, mental y social de los trabajadores", "Solo se preocupa por la prevención de enfermedades en el trabajo"], respuesta: 2 },
+        { pregunta: "¿Qué aspectos están incluidos en la definición de salud según la OMS?", opciones: ["La ausencia de enfermedad", "La capacidad de trabajar sin interrupciones", "El estado de bienestar físico, psíquico y social", "La inmunidad ante enfermedades laborales"], respuesta: 2 },
+        { pregunta: "¿En qué ámbitos se debe aplicar la seguridad integrada?", opciones: ["Solo en contextos de combate", "Durante las operaciones militares, en actividades administrativas y en el cuidado del medio ambiente", "Solo en fábricas y empresas privadas", "Solo en labores de alto riesgo"], respuesta: 1 },
+        { pregunta: "¿Cuáles son los principios de la seguridad operacional?", opciones: ["Aceptar cualquier riesgo sin evaluar costos", "No aceptar riesgos innecesarios, tomar decisiones sobre los riesgos en el nivel adecuado y gestionar los riesgos mediante planificación", "Evitar todo tipo de riesgo sin excepción", "Dejar la seguridad en manos de cada individuo sin intervención institucional"], respuesta: 1 },
+        { pregunta: "¿Cuáles son las funciones del Oficial de Seguridad Integrada?", opciones: ["Responsable de la ejecución, elaboración y cumplimiento de medidas de seguridad, planificación y orientación del trabajo en seguridad, y trámite del presupuesto para seguridad", "Solo supervisar el trabajo de seguridad sin intervenir", "Crear normas generales sin aplicarlas", "Delegar todas sus funciones a otras áreas"], respuesta: 0 },
+        { pregunta: "¿Qué es un incidente en el contexto de la seguridad laboral?", opciones: ["Un evento que puede dar lugar a un accidente o que tiene el potencial de conducir a un accidente", "Un evento sin relación con la seguridad", "Un accidente con lesiones graves", "Un hecho que solo genera daños materiales"], respuesta: 0 },
+        { pregunta: "¿Qué se entiende por riesgo laboral?", opciones: ["Un peligro inevitable en cualquier entorno laboral", "La posibilidad de que un trabajador sufra un daño derivado del trabajo, considerando la probabilidad y la severidad del daño", "Un evento que solo ocurre en trabajos de alto riesgo", "Un problema exclusivo del sector industrial"], respuesta: 1 },
+        { pregunta: "¿Qué tipos de factores de riesgo existen en el entorno laboral?", opciones: ["Solo físicos y químicos", "Solo ergonómicos y psicosociales", "Mecánicos, físicos, químicos, biológicos, ergonómicos y psicosociales", "Solo mecánicos y biológicos"], respuesta: 2 },
+        { pregunta: "¿Qué entidades pueden investigar accidentes laborales?", opciones: ["Solo el Comité de Seguridad", "Solo el comandante de la unidad afectada", "Solo la OIT", "Junta Investigadora de Accidentes (JIA), Comisión de Investigación (CI), Oficial del Sistema Integrado de Seguridad (OSIS) y otras juntas establecidas por CC.FF.AA. y/o MDN"], respuesta: 3 }
+    ];
+
+    const preguntasComprasPublicas = [
+        { pregunta: "¿Quiénes pueden otorgar garantías en los procesos de contratación pública?", opciones: ["Banco o institución financiera", "Compañía de seguros", "Primera hipoteca de bienes raíces", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿En qué casos no se exige la garantía de fiel cumplimiento?", opciones: ["Contratos menores a $72,126.03", "Contratos de compraventa de bienes inmuebles", "Contratos de adquisición de bienes muebles que se entreguen al momento del pago", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué porcentaje del valor del contrato representa la garantía de fiel cumplimiento?", opciones: ["5%", "10%", "15%", "20%"], respuesta: 0 },
+        { pregunta: "¿Cuál es el porcentaje máximo de anticipo que puede otorgar una entidad en un contrato?", opciones: ["30%", "50%", "70%", "90%"], respuesta: 1 },
+        { pregunta: "¿En qué casos se puede objetar la designación del administrador del contrato?", opciones: ["Conflicto de intereses", "Falta de competencia profesional", "Atentar contra los derechos de los servidores públicos", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué debe hacer el contratista si desea cambiar al administrador del contrato?", opciones: ["Solicitar el cambio a la máxima autoridad de la entidad contratante", "Presentar una objeción formal", "Renunciar al contrato", "Ninguna de las anteriores"], respuesta: 0 },
+        { pregunta: "¿Qué se debe hacer antes de la apertura de ofertas en un proceso de contratación pública?", opciones: ["Verificar la habilitación de los oferentes en el RUP", "Publicar las aclaraciones en el portal COMPRASPÚBLICAS", "Convalidar errores en las ofertas", "Todas las anteriores"], respuesta: 0 },
+        { pregunta: "¿Qué procedimientos de contratación pública se consideran dinámicos?", opciones: ["Catálogo Electrónico y Subasta Inversa Electrónica", "Licitación y Contratación Directa", "Menor Cuantía y Cotización", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué tipo de contrataciones están exentas del Plan Anual de Contratación (PAC)?", opciones: ["Contrataciones de ínfima cuantía", "Procedimientos especiales de contratación en situación de emergencia", "Adquisición de bienes inmuebles", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué información debe contener el Plan Anual de Contratación (PAC)?", opciones: ["Procesos de contratación a realizarse en el año fiscal", "Descripción detallada del objeto de contratación", "Presupuesto estimativo y cronograma de implementación", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué se considera como excepción en el estudio de mercado?", opciones: ["Procedimientos de ínfima cuantía", "Bienes o servicios con precio oficial fijado por el Gobierno Nacional", "Contrataciones por catálogo electrónico", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué debe incluir la certificación de disponibilidad presupuestaria?", opciones: ["Información relacionada con las partidas presupuestarias", "Fondos a los que se aplicará el gasto", "Montos de contratación sin IVA", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué tipo de garantías pueden ser representadas por depósitos de bonos del Estado?", opciones: ["Garantía de fiel cumplimiento", "Garantía de anticipo", "Garantía de buena oferta", "Ninguna de las anteriores"], respuesta: 0 },
+        { pregunta: "¿Qué tipo de contrataciones se consideran de régimen especial?", opciones: ["Adquisición de fármacos y bienes estratégicos", "Contrataciones con empresas públicas internacionales", "Obra artística, científica y literaria", "Todas las anteriores"], respuesta: 3 },
+        { pregunta: "¿Qué se debe hacer en caso de detectar ofertas vinculadas en un proceso de contratación?", opciones: ["Inhabilitar las ofertas vinculadas", "Continuar con el proceso sin cambios", "Cancelar el proceso de contratación", "Ninguna de las anteriores"], respuesta: 0 }
+    ];
+
+    const contenedor = document.getElementById("preguntas-container");
+
+    // Sección de GESTION DOCUMENTAL
+    let tituloGD = document.createElement("h2");
+    tituloGD.textContent = "GESTION DOCUMENTAL";
+    contenedor.appendChild(tituloGD);
+
+    preguntasGD.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.className = "question";
+
+        let pregunta = document.createElement("p");
+        pregunta.textContent = `${index + 1}. ${item.pregunta}`;
+        div.appendChild(pregunta);
+
+        item.opciones.forEach((opcion, i) => {
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            input.type = "radio";
+            input.name = `qGD${index}`;
+            input.value = i;
+            input.onclick = function() {
+                let feedback = div.querySelector(".feedback");
+                if (!feedback) {
+                    feedback = document.createElement("p");
+                    feedback.className = "feedback";
+                    div.appendChild(feedback);
+                }
+                feedback.textContent = i === item.respuesta ? "✔ Respuesta correcta" : "✘ Respuesta incorrecta";
+                feedback.style.color = i === item.respuesta ? "green" : "red";
+            };
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(` ${opcion}`));
+            div.appendChild(label);
+            div.appendChild(document.createElement("br"));
+        });
+
+        contenedor.appendChild(div);
+    });
+
+    // Sección de ADMINISTRACIÓN DE RRHH
+    let tituloRRHH = document.createElement("h2");
+    tituloRRHH.textContent = "ADMINISTRACIÓN DE RRHH";
+    contenedor.appendChild(tituloRRHH);
+
+    preguntasRRHH.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.className = "question";
+
+        let pregunta = document.createElement("p");
+        pregunta.textContent = `${index + 1}. ${item.pregunta}`;
+        div.appendChild(pregunta);
+
+        item.opciones.forEach((opcion, i) => {
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            input.type = "radio";
+            input.name = `qRRHH${index}`;
+            input.value = i;
+            input.onclick = function() {
+                let feedback = div.querySelector(".feedback");
+                if (!feedback) {
+                    feedback = document.createElement("p");
+                    feedback.className = "feedback";
+                    div.appendChild(feedback);
+                }
+                feedback.textContent = i === item.respuesta ? "✔ Respuesta correcta" : "✘ Respuesta incorrecta";
+                feedback.style.color = i === item.respuesta ? "green" : "red";
+            };
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(` ${opcion}`));
+            div.appendChild(label);
+            div.appendChild(document.createElement("br"));
+        });
+
+        contenedor.appendChild(div);
+    });
+
+    // Sección de NORMAS DE CONTROL INTERNO
+    let tituloNCI = document.createElement("h2");
+    tituloNCI.textContent = "NORMAS DE CONTROL INTERNO";
+    contenedor.appendChild(tituloNCI);
+
+    preguntasControlInterno.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.className = "question";
+
+        let pregunta = document.createElement("p");
+        pregunta.textContent = `${index + 1}. ${item.pregunta}`;
+        div.appendChild(pregunta);
+
+        item.opciones.forEach((opcion, i) => {
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            input.type = "radio";
+            input.name = `qNCI${index}`;
+            input.value = i;
+            input.onclick = function() {
+                let feedback = div.querySelector(".feedback");
+                if (!feedback) {
+                    feedback = document.createElement("p");
+                    feedback.className = "feedback";
+                    div.appendChild(feedback);
+                }
+                feedback.textContent = i === item.respuesta ? "✔ Respuesta correcta" : "✘ Respuesta incorrecta";
+                feedback.style.color = i === item.respuesta ? "green" : "red";
+            };
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(` ${opcion}`));
+            div.appendChild(label);
+            div.appendChild(document.createElement("br"));
+        });
+
+        contenedor.appendChild(div);
+    });
+
+    // Sección de RECURSOS LOGÍSTICOS
+    let tituloRL = document.createElement("h2");
+    tituloRL.textContent = "RECURSOS LOGÍSTICOS";
+    contenedor.appendChild(tituloRL);
+
+    preguntasLogistica.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.className = "question";
+
+        let pregunta = document.createElement("p");
+        pregunta.textContent = `${index + 1}. ${item.pregunta}`;
+        div.appendChild(pregunta);
+
+        item.opciones.forEach((opcion, i) => {
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            input.type = "radio";
+            input.name = `qRL${index}`;
+            input.value = i;
+            input.onclick = function() {
+                let feedback = div.querySelector(".feedback");
+                if (!feedback) {
+                    feedback = document.createElement("p");
+                    feedback.className = "feedback";
+                    div.appendChild(feedback);
+                }
+                feedback.textContent = i === item.respuesta ? "✔ Respuesta correcta" : "✘ Respuesta incorrecta";
+                feedback.style.color = i === item.respuesta ? "green" : "red";
+            };
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(` ${opcion}`));
+            div.appendChild(label);
+            div.appendChild(document.createElement("br"));
+        });
+
+        contenedor.appendChild(div);
+    });
+
+    // Sección de SEGURIDAD INTEGRADA (SIS)
+    let tituloSIS = document.createElement("h2");
+    tituloSIS.textContent = "SEGURIDAD INTEGRADA (SIS)";
+    contenedor.appendChild(tituloSIS);
+
+    preguntasSIS.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.className = "question";
+
+        let pregunta = document.createElement("p");
+        pregunta.textContent = `${index + 1}. ${item.pregunta}`;
+        div.appendChild(pregunta);
+
+        item.opciones.forEach((opcion, i) => {
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            input.type = "radio";
+            input.name = `qSIS${index}`;
+            input.value = i;
+            input.onclick = function() {
+                let feedback = div.querySelector(".feedback");
+                if (!feedback) {
+                    feedback = document.createElement("p");
+                    feedback.className = "feedback";
+                    div.appendChild(feedback);
+                }
+                feedback.textContent = i === item.respuesta ? "✔ Respuesta correcta" : "✘ Respuesta incorrecta";
+                feedback.style.color = i === item.respuesta ? "green" : "red";
+            };
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(` ${opcion}`));
+            div.appendChild(label);
+            div.appendChild(document.createElement("br"));
+        });
+
+        contenedor.appendChild(div);
+    });
+
+    // Sección de COMPRAS PÚBLICAS
+    let tituloCP = document.createElement("h2");
+    tituloCP.textContent = "COMPRAS PÚBLICAS";
+    contenedor.appendChild(tituloCP);
+
+    preguntasComprasPublicas.forEach((item, index) => {
+        let div = document.createElement("div");
+        div.className = "question";
+
+        let pregunta = document.createElement("p");
+        pregunta.textContent = `${index + 1}. ${item.pregunta}`;
+        div.appendChild(pregunta);
+
+        item.opciones.forEach((opcion, i) => {
+            let label = document.createElement("label");
+            let input = document.createElement("input");
+            input.type = "radio";
+            input.name = `qCP${index}`;
+            input.value = i;
+            input.onclick = function() {
+                let feedback = div.querySelector(".feedback");
+                if (!feedback) {
+                    feedback = document.createElement("p");
+                    feedback.className = "feedback";
+                    div.appendChild(feedback);
+                }
+                feedback.textContent = i === item.respuesta ? "✔ Respuesta correcta" : "✘ Respuesta incorrecta";
+                feedback.style.color = i === item.respuesta ? "green" : "red";
+            };
+            label.appendChild(input);
+            label.appendChild(document.createTextNode(` ${opcion}`));
+            div.appendChild(label);
+            div.appendChild(document.createElement("br"));
+        });
+
+        contenedor.appendChild(div);
+    });
+    </script>
+
+</body>
+</html>
